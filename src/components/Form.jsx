@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FaLink } from 'react-icons/fa';
 
 class Form extends Component {
   render() {
@@ -19,13 +20,15 @@ class Form extends Component {
     } = this.props;
 
     return (
-      <form>
+      <form className="form">
+        <h2 className="form-title">Adicionar nova carta</h2>
         <label htmlFor="name-input">
           Nome:
           <input
             type="text"
             name="name"
             id="name-input"
+            placeholder="Nome da carta"
             data-testid="name-input"
             value={ cardName }
             onChange={ onInputChange }
@@ -43,8 +46,8 @@ class Form extends Component {
           />
         </label>
 
-        <label htmlFor="attr1-input">
-          Attr01:
+        <label htmlFor="attr1-input" className="label-flex">
+          <span>Attr01:</span>
           <input
             type="number"
             name="attr01"
@@ -55,8 +58,8 @@ class Form extends Component {
           />
         </label>
 
-        <label htmlFor="attr2-input">
-          Attr02:
+        <label htmlFor="attr2-input" className="label-flex">
+          <span>Attr02:</span>
           <input
             type="number"
             name="attr02"
@@ -67,8 +70,8 @@ class Form extends Component {
           />
         </label>
 
-        <label htmlFor="attr3-input">
-          Attr03:
+        <label htmlFor="attr3-input" className="label-flex">
+          <span>Attr03:</span>
           <input
             type="number"
             name="attr03"
@@ -79,16 +82,21 @@ class Form extends Component {
           />
         </label>
 
-        <label htmlFor="image-input">
-          Imagem:
-          <input
-            type="text"
-            name="image"
-            id="image-input"
-            data-testid="image-input"
-            value={ cardImage }
-            onChange={ onInputChange }
-          />
+        <span className="span-points">Pontos restantes: 200</span>
+
+        <label htmlFor="image-input" className="label-flex label-image">
+          <span>Imagem:</span>
+          <div className="container-input-image">
+            <span><FaLink /></span>
+            <input
+              type="text"
+              name="image"
+              id="image-input"
+              data-testid="image-input"
+              value={ cardImage }
+              onChange={ onInputChange }
+            />
+          </div>
         </label>
 
         <label htmlFor="rare-input">
@@ -105,7 +113,7 @@ class Form extends Component {
           </select>
         </label>
 
-        <label htmlFor="trunfo-input">
+        <label htmlFor="trunfo-input" className="label-check">
           <input
             type="checkbox"
             name="trunfo"
@@ -114,7 +122,7 @@ class Form extends Component {
             checked={ cardTrunfo }
             onChange={ onInputChange }
           />
-          Super Trunfo:
+          <span>Super Trunfo:</span>
         </label>
 
         <button
