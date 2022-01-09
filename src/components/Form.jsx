@@ -102,21 +102,21 @@ class Form extends Component {
         <label htmlFor="rare-input">
           Raridade:
           <select
-            name="rare"
+            name="rarity"
             data-testid="rare-input"
             value={ cardRare }
             onChange={ onInputChange }
           >
             <option value="normal">Normal</option>
             <option value="raro">Raro</option>
-            <option value="muito raro">Muito Raro</option>
+            <option value="muito raro">Muito raro</option>
           </select>
         </label>
 
         <label htmlFor="trunfo-input" className="label-check">
           <input
             type="checkbox"
-            name="trunfo"
+            name="cardTrunfo"
             id="trunfo-input"
             data-testid="trunfo-input"
             checked={ cardTrunfo }
@@ -128,6 +128,7 @@ class Form extends Component {
         <button
           type="submit"
           data-testid="save-button"
+          className="save-button"
           disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
         >

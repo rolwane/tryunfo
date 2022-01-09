@@ -19,10 +19,20 @@
   padding: 80px 30px;
 }
 
-.form-title {
+.col-card {
+  background-color: #023031;
+  width: 50%;
+  padding: 80px 30px;
+}
+
+.form-title, .preview-title {
   text-align: center;
   margin-bottom: 70px;
   font-weight: 800;
+}
+
+.preview-title {
+  color: white;
 }
 
 .form {
@@ -147,7 +157,7 @@
   margin: 2px 0 0 5px;
 }
 
-.form button {
+.save-button {
   width: 115px;
   height: 40px;
   background: #003BE5;
@@ -159,4 +169,54 @@
   margin-top: 40px;
   outline: none;
   cursor: pointer;
+}
+
+.card {
+  background-color: white;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  min-height: 450px;
+  padding: 20px 30px 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 0 10px #036B52;
+}
+
+.card h2 {
+  font-size: 18px;
+  text-align: center;
+  color: #444955;
+  font-weight: 700;
+}
+
+.card img {
+  max-width: 100%;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.card .description {
+  font-size: 12px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.attribute {
+  background-color: rgba(0, 0, 0, 0.05);
+  margin-bottom: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.attribute span {
+  font-size: 14px;
+  font-weight: 600;color: #3D495C;
+}
+
+[disabled] {
+  background-color: #CCC;
 }

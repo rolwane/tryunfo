@@ -2,7 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Card extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      tempName: 'Nome da carta',
+      tempImage: 'https://patriciaelias.com.br/wp-content/uploads/2021/01/placeholder.png',
+      tempDescription: 'Lorem ipsum dolor sit amet consec tetur adipisicing elit ad exi.',
+    };
+  }
+
   render() {
+    const {
+      tempName,
+      tempImage,
+      tempDescription,
+    } = this.state;
+
     const {
       cardName,
       cardDescription,
@@ -16,14 +32,29 @@ class Card extends Component {
 
     return (
       <div className="card">
-        <h2 data-testid="name-card">{cardName}</h2>
-        <img src={ cardImage } alt={ cardName } data-testid="image-card" />
-        <p data-testid="description-card">{cardDescription}</p>
-        <p data-testid="attr1-card">{cardAttr1}</p>
-        <p data-testid="attr2-card">{cardAttr2}</p>
-        <p data-testid="attr3-card">{cardAttr3}</p>
-        <p data-testid="rare-card">{cardRare}</p>
-        {cardTrunfo ? <p data-testid="trunfo-card">Super Trunfo</p> : ''}
+        <h2 data-testid="name-card">{cardName || tempName}</h2>
+        <img src={ cardImage || tempImage } alt={ cardName } data-testid="image-card" />
+        <p className="description" data-testid="description-card">
+          {cardDescription || tempDescription}
+        </p>
+
+        <p className="attribute" data-testid="attr1-card">
+          <span>Atributo 1</span>
+          {cardAttr1}
+        </p>
+
+        <p className="attribute" data-testid="attr2-card">
+          <span>Atributo 2</span>
+          {cardAttr2}
+        </p>
+
+        <p className="attribute" data-testid="attr3-card">
+          <span>Atributo 3</span>
+          {cardAttr3}
+        </p>
+
+        <p className="rarity" data-testid="rare-card">{cardRare}</p>
+        {cardTrunfo ? <p data-testid="trunfo-card">💥 Super Trunfo</p> : ''}
       </div>
     );
   }

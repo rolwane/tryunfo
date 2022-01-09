@@ -1,3 +1,5 @@
+/* eslint-disable no-magic-numbers */
+
 import React from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
@@ -9,22 +11,53 @@ class App extends React.Component {
     this.state = {
       name: '',
       description: '',
-      attr01: 0,
-      attr02: 0,
-      attr03: 0,
+      attr01: '',
+      attr02: '',
+      attr03: '',
       image: '',
-      rare: 'normal',
-      trunfo: false,
+      rarity: 'normal',
+      cardTrunfo: false,
+      isSaveButtonDisabled: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.formValidation = this.formValidation.bind(this);
   }
 
   handleChange({ target }) {
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({
-      [target.name]: value,
-    });
+    this.setState({ [target.name]: value }, this.formValidation);
+  }
+
+  formValidation() {
+    const {
+      name,
+      description,
+      attr01,
+      attr02,
+      attr03,
+      image,
+    } = this.state;
+
+    if (
+      name.length > 0
+      && description.length > 0
+      && image.length > 0
+      && attr01.length > 0
+      && attr02.length > 0
+      && attr03.length > 0
+      && Number(attr01) >= 0
+      && Number(attr02) >= 0
+      && Number(attr03) >= 0
+      && Number(attr01) <= 90
+      && Number(attr02) <= 90
+      && Number(attr03) <= 90
+      && Number(attr01) + Number(attr02) + Number(attr03) <= 210
+    ) {
+      this.setState({ isSaveButtonDisabled: false });
+    } else {
+      this.setState({ isSaveButtonDisabled: true });
+    }
   }
 
   render() {
@@ -35,8 +68,9 @@ class App extends React.Component {
       attr02,
       attr03,
       image,
-      rare,
-      trunfo,
+      rarity,
+      cardTrunfo,
+      isSaveButtonDisabled,
     } = this.state;
 
     return (
@@ -49,22 +83,26 @@ class App extends React.Component {
             cardAttr2={ attr02 }
             cardAttr3={ attr03 }
             cardImage={ image }
-            cardRare={ rare }
-            cardTrunfo={ trunfo }
+            cardRare={ rarity }
+            cardTrunfo={ cardTrunfo }
+            isSaveButtonDisabled={ isSaveButtonDisabled }
             onInputChange={ this.handleChange }
           />
         </section>
-        <Card
-          cardName={ name }
-          cardDescription={ description }
-          cardAttr1={ attr01 }
-          cardAttr2={ attr02 }
-          cardAttr3={ attr03 }
-          cardImage={ image }
-          cardRare={ rare }
-          cardTrunfo={ trunfo }
-          onInputChange={ this.handleChange }
-        />
+        <section className="col-card">
+          <h2 className="preview-title">Pré-visualização</h2>
+          <Card
+            cardName={ name }
+            cardDescription={ description }
+            cardAttr1={ attr01 }
+            cardAttr2={ attr02 }
+            cardAttr3={ attr03 }
+            cardImage={ image }
+            cardRare={ rarity }
+            cardTrunfo={ cardTrunfo }
+            onInputChange={ this.handleChange }
+          />
+        </section>
       </section>
     );
   }
