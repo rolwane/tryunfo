@@ -124,6 +124,7 @@
   display: flex;
   align-items: center;
   margin-top: 40px;
+  line-height: 25px;
 }
 
 .form .label-check input{
@@ -176,7 +177,7 @@
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
-  min-height: 530px;
+  min-height: 538px;
   padding: 20px 30px 30px;
   border-radius: 8px;
   box-shadow: 0 0 0 10px #036B52;

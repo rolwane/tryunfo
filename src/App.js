@@ -7,27 +7,47 @@ class App extends React.Component {
     super();
 
     this.state = {
-      name: '',
-      description: '',
-      attr01: '',
-      attr02: '',
-      attr03: '',
-      image: '',
-      rarity: 'normal',
-      cardTrunfo: false,
+      formData: {
+        name: '',
+        description: '',
+        attr01: 0,
+        attr02: 0,
+        attr03: 0,
+        image: '',
+        rarity: 'normal',
+        cardTrunfo: false,
+      },
       isSaveButtonDisabled: true,
+      initialForm: {
+        name: '',
+        description: '',
+        attr01: 0,
+        attr02: 0,
+        attr03: 0,
+        image: '',
+        rarity: 'normal',
+        cardTrunfo: false,
+        isSaveButtonDisabled: true,
+      },
+      savedCards: [],
+      hasTrunfo: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.formValidation = this.formValidation.bind(this);
+    this.saveCard = this.saveCard.bind(this);
+    this.hasTrunfoValidation = this.hasTrunfoValidation.bind(this);
   }
 
   handleChange({ target }) {
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ [target.name]: value }, this.formValidation);
+    const { formData } = this.state;
+    formData[target.name] = value;
+    this.setState({ formData }, this.formValidation);
   }
 
   formValidation() {
+    const { formData } = this.state;
     const {
       name,
       description,
@@ -35,7 +55,7 @@ class App extends React.Component {
       attr02,
       attr03,
       image,
-    } = this.state;
+    } = formData;
 
     const noventa = 90;
     const duzentosEDez = 210;
@@ -61,7 +81,25 @@ class App extends React.Component {
     }
   }
 
+  hasTrunfoValidation() {
+    const { savedCards } = this.state;
+    const bool = savedCards.some((card) => card.cardTrunfo === true);
+    this.setState({ hasTrunfo: bool });
+  }
+
+  saveCard(event) {
+    event.preventDefault();
+
+    const { formData, savedCards, initialForm } = this.state;
+    const previousCards = savedCards;
+    this.setState({ savedCards: [...previousCards, formData] }, this.hasTrunfoValidation);
+    this.setState({ formData: { ...initialForm } });
+    this.setState({ isSaveButtonDisabled: true });
+    console.log(initialForm);
+  }
+
   render() {
+    const { formData, isSaveButtonDisabled, hasTrunfo } = this.state;
     const {
       name,
       description,
@@ -71,8 +109,7 @@ class App extends React.Component {
       image,
       rarity,
       cardTrunfo,
-      isSaveButtonDisabled,
-    } = this.state;
+    } = formData;
 
     return (
       <section className="container">
@@ -86,7 +123,9 @@ class App extends React.Component {
             cardImage={ image }
             cardRare={ rarity }
             cardTrunfo={ cardTrunfo }
+            hasTrunfo={ hasTrunfo }
             isSaveButtonDisabled={ isSaveButtonDisabled }
+            onSaveButtonClick={ this.saveCard }
             onInputChange={ this.handleChange }
           />
         </section>

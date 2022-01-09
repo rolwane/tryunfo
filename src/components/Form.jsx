@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FaLink } from 'react-icons/fa';
+import Checkbox from './Checkbox';
 
 class Form extends Component {
   render() {
@@ -13,7 +14,7 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      // hasTrunfo,
+      hasTrunfo,
       isSaveButtonDisabled,
       onInputChange,
       onSaveButtonClick,
@@ -114,15 +115,10 @@ class Form extends Component {
         </label>
 
         <label htmlFor="trunfo-input" className="label-check">
-          <input
-            type="checkbox"
-            name="cardTrunfo"
-            id="trunfo-input"
-            data-testid="trunfo-input"
-            checked={ cardTrunfo }
-            onChange={ onInputChange }
-          />
-          <span>Super Trunfo:</span>
+          {
+            hasTrunfo ? 'Você já tem um Super Trunfo em seu baralho'
+              : <Checkbox cardTrunfo={ cardTrunfo } onInputChange={ onInputChange } />
+          }
         </label>
 
         <button
