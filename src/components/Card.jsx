@@ -53,8 +53,12 @@ class Card extends Component {
           {cardAttr3}
         </p>
 
-        <p className="rarity" data-testid="rare-card">{cardRare}</p>
-        {cardTrunfo ? <p data-testid="trunfo-card">💥 Super Trunfo</p> : ''}
+        <p className="rarity" data-testid="rare-card">
+          <span>Raridade:</span>
+          <span>{cardRare}</span>
+        </p>
+
+        {cardTrunfo && <p data-testid="trunfo-card" className="trunfo">🏆 Super Trunfo</p>}
       </div>
     );
   }

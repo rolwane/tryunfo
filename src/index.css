@@ -219,7 +219,23 @@
 }
 
 .rarity {
+  margin-top: 20px;
+}
+
+.rarity span {
+  text-transform: capitalize;
+  margin-right: 5px;
+  font-weight: 600;
   font-size: 14px;
+  color: #3D495C;
+}
+
+.trunfo {
+  color: orange;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 26px;
 }
 
 [disabled] {
