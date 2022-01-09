@@ -1,5 +1,3 @@
-/* eslint-disable no-magic-numbers */
-
 import React from 'react';
 import Card from './components/Card';
 import Form from './components/Form';
@@ -39,6 +37,9 @@ class App extends React.Component {
       image,
     } = this.state;
 
+    const noventa = 90;
+    const duzentosEDez = 210;
+
     if (
       name.length > 0
       && description.length > 0
@@ -49,10 +50,10 @@ class App extends React.Component {
       && Number(attr01) >= 0
       && Number(attr02) >= 0
       && Number(attr03) >= 0
-      && Number(attr01) <= 90
-      && Number(attr02) <= 90
-      && Number(attr03) <= 90
-      && Number(attr01) + Number(attr02) + Number(attr03) <= 210
+      && Number(attr01) <= noventa
+      && Number(attr02) <= noventa
+      && Number(attr03) <= noventa
+      && Number(attr01) + Number(attr02) + Number(attr03) <= duzentosEDez
     ) {
       this.setState({ isSaveButtonDisabled: false });
     } else {

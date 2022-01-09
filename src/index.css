@@ -170,13 +170,13 @@
   outline: none;
   cursor: pointer;
 }
-
+ 
 .card {
   background-color: white;
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
-  min-height: 450px;
+  min-height: 530px;
   padding: 20px 30px 30px;
   border-radius: 8px;
   box-shadow: 0 0 0 10px #036B52;
@@ -191,8 +191,9 @@
 
 .card img {
   max-width: 100%;
-  margin-top: 25px;
-  margin-bottom: 25px;
+  max-height: 200px;
+  margin: 25px auto;
+  display: block;
 }
 
 .card .description {
@@ -215,6 +216,10 @@
 .attribute span {
   font-size: 14px;
   font-weight: 600;color: #3D495C;
+}
+
+.rarity {
+  font-size: 14px;
 }
 
 [disabled] {
