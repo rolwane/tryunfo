@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 import Card from './components/Card';
 import Form from './components/Form';
 
@@ -39,6 +40,7 @@ class App extends React.Component {
     this.formValidation = this.formValidation.bind(this);
     this.saveCard = this.saveCard.bind(this);
     this.hasTrunfoValidation = this.hasTrunfoValidation.bind(this);
+    this.removeCard = this.removeCard.bind(this);
   }
 
   handleChange({ target }) {
@@ -101,7 +103,12 @@ class App extends React.Component {
     this.setState({ savedCards: [...previousCards, formData] }, this.hasTrunfoValidation);
     this.setState({ formData: { ...initialForm } });
     this.setState({ isSaveButtonDisabled: true });
-    console.log(initialForm);
+  }
+
+  removeCard(id) {
+    const { savedCards } = this.state;
+    const updatedCards = savedCards.filter((card) => card.name !== id);
+    this.setState({ savedCards: updatedCards }, this.hasTrunfoValidation);
   }
 
   render() {
@@ -160,17 +167,27 @@ class App extends React.Component {
         </section>
         <section className="cardList">
           {savedCards.map((card) => (
-            <Card
-              key={ card.name }
-              cardName={ card.name }
-              cardDescription={ card.description }
-              cardAttr1={ card.attr01 }
-              cardAttr2={ card.attr02 }
-              cardAttr3={ card.attr03 }
-              cardImage={ card.image }
-              cardRare={ card.rarity }
-              cardTrunfo={ card.cardTrunfo }
-            />))}
+            <div key={ card.name } className="container-card">
+              <Card
+                cardName={ card.name }
+                cardDescription={ card.description }
+                cardAttr1={ card.attr01 }
+                cardAttr2={ card.attr02 }
+                cardAttr3={ card.attr03 }
+                cardImage={ card.image }
+                cardRare={ card.rarity }
+                cardTrunfo={ card.cardTrunfo }
+              />
+              <button
+                type="button"
+                className="btn-remove-card"
+                data-testid="delete-button"
+                onClick={ () => this.removeCard(card.name) }
+              >
+                <FaTrashAlt />
+                Excluir
+              </button>
+            </div>))}
         </section>
       </>
     );
