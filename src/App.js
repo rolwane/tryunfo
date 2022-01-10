@@ -99,7 +99,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { formData, isSaveButtonDisabled, hasTrunfo } = this.state;
+    const { formData, isSaveButtonDisabled, hasTrunfo, savedCards } = this.state;
     const {
       name,
       description,
@@ -112,38 +112,54 @@ class App extends React.Component {
     } = formData;
 
     return (
-      <section className="container">
-        <section className="col-form">
-          <Form
-            cardName={ name }
-            cardDescription={ description }
-            cardAttr1={ attr01 }
-            cardAttr2={ attr02 }
-            cardAttr3={ attr03 }
-            cardImage={ image }
-            cardRare={ rarity }
-            cardTrunfo={ cardTrunfo }
-            hasTrunfo={ hasTrunfo }
-            isSaveButtonDisabled={ isSaveButtonDisabled }
-            onSaveButtonClick={ this.saveCard }
-            onInputChange={ this.handleChange }
-          />
+      <>
+        <section className="container">
+          <section className="col-form">
+            <Form
+              cardName={ name }
+              cardDescription={ description }
+              cardAttr1={ attr01 }
+              cardAttr2={ attr02 }
+              cardAttr3={ attr03 }
+              cardImage={ image }
+              cardRare={ rarity }
+              cardTrunfo={ cardTrunfo }
+              hasTrunfo={ hasTrunfo }
+              isSaveButtonDisabled={ isSaveButtonDisabled }
+              onSaveButtonClick={ this.saveCard }
+              onInputChange={ this.handleChange }
+            />
+          </section>
+          <section className="col-card">
+            <h2 className="preview-title">Pré-visualização</h2>
+            <Card
+              cardName={ name }
+              cardDescription={ description }
+              cardAttr1={ attr01 }
+              cardAttr2={ attr02 }
+              cardAttr3={ attr03 }
+              cardImage={ image }
+              cardRare={ rarity }
+              cardTrunfo={ cardTrunfo }
+              // onInputChange={ this.handleChange }
+            />
+          </section>
         </section>
-        <section className="col-card">
-          <h2 className="preview-title">Pré-visualização</h2>
-          <Card
-            cardName={ name }
-            cardDescription={ description }
-            cardAttr1={ attr01 }
-            cardAttr2={ attr02 }
-            cardAttr3={ attr03 }
-            cardImage={ image }
-            cardRare={ rarity }
-            cardTrunfo={ cardTrunfo }
-            onInputChange={ this.handleChange }
-          />
-        </section>
-      </section>
+        <div>
+          {savedCards.map((card) => (
+            <Card
+              key={ card.name }
+              cardName={ card.name }
+              cardDescription={ card.description }
+              cardAttr1={ card.attr01 }
+              cardAttr2={ card.attr02 }
+              cardAttr3={ card.attr03 }
+              cardImage={ card.image }
+              cardRare={ card.rarity }
+              cardTrunfo={ card.cardTrunfo }
+            />))}
+        </div>
+      </>
     );
   }
 }
