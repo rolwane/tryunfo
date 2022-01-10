@@ -11,6 +11,7 @@ class Form extends Component {
       cardAttr1,
       cardAttr2,
       cardAttr3,
+      remainingPoints,
       cardImage,
       cardRare,
       cardTrunfo,
@@ -83,7 +84,10 @@ class Form extends Component {
           />
         </label>
 
-        <span className="span-points">Pontos restantes: 200</span>
+        <span className="span-points">
+          <span style={ { marginRight: 5 } }>Pontos restantes:</span>
+          { remainingPoints }
+        </span>
 
         <label htmlFor="image-input" className="label-flex label-image">
           <span>Imagem:</span>

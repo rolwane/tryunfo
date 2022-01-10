@@ -17,7 +17,7 @@ class App extends React.Component {
         rarity: 'normal',
         cardTrunfo: false,
       },
-      isSaveButtonDisabled: true,
+
       initialForm: {
         name: '',
         description: '',
@@ -27,8 +27,10 @@ class App extends React.Component {
         image: '',
         rarity: 'normal',
         cardTrunfo: false,
-        isSaveButtonDisabled: true,
       },
+
+      isSaveButtonDisabled: true,
+      remainingPoints: 210,
       savedCards: [],
       hasTrunfo: false,
     };
@@ -42,8 +44,12 @@ class App extends React.Component {
   handleChange({ target }) {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const { formData } = this.state;
+    let { remainingPoints } = this.state;
+    const duzentosEDez = 210;
     formData[target.name] = value;
-    this.setState({ formData }, this.formValidation);
+    remainingPoints = duzentosEDez - (Number(formData.attr01) + Number(formData.attr02));
+    remainingPoints -= Number(formData.attr03);
+    this.setState({ formData, remainingPoints }, this.formValidation);
   }
 
   formValidation() {
@@ -99,7 +105,14 @@ class App extends React.Component {
   }
 
   render() {
-    const { formData, isSaveButtonDisabled, hasTrunfo, savedCards } = this.state;
+    const {
+      formData,
+      isSaveButtonDisabled,
+      hasTrunfo,
+      savedCards,
+      remainingPoints,
+    } = this.state;
+
     const {
       name,
       description,
@@ -121,6 +134,7 @@ class App extends React.Component {
               cardAttr1={ attr01 }
               cardAttr2={ attr02 }
               cardAttr3={ attr03 }
+              remainingPoints={ remainingPoints }
               cardImage={ image }
               cardRare={ rarity }
               cardTrunfo={ cardTrunfo }
@@ -141,11 +155,10 @@ class App extends React.Component {
               cardImage={ image }
               cardRare={ rarity }
               cardTrunfo={ cardTrunfo }
-              // onInputChange={ this.handleChange }
             />
           </section>
         </section>
-        <div>
+        <section className="cardList">
           {savedCards.map((card) => (
             <Card
               key={ card.name }
@@ -158,7 +171,7 @@ class App extends React.Component {
               cardRare={ card.rarity }
               cardTrunfo={ card.cardTrunfo }
             />))}
-        </div>
+        </section>
       </>
     );
   }
