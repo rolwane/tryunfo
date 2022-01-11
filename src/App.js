@@ -34,7 +34,10 @@ class App extends React.Component {
       remainingPoints: 210,
       savedCards: [],
       hasTrunfo: false,
-      searchValue: '',
+      searchValues: {
+        searchText: '',
+        searchRarity: '',
+      },
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -57,7 +60,12 @@ class App extends React.Component {
   }
 
   handleSearch({ target }) {
-    this.setState({ searchValue: target.value });
+    const value = target.name === 'searchRarity'
+      && target.value === 'todas' ? '' : target.value.toLowerCase();
+
+    this.setState((previousState) => (
+      { searchValues: { ...previousState.searchValues, [target.name]: value } }
+    ));
   }
 
   formValidation() {
@@ -124,7 +132,7 @@ class App extends React.Component {
       hasTrunfo,
       savedCards,
       remainingPoints,
-      searchValue,
+      searchValues,
     } = this.state;
 
     const {
@@ -138,8 +146,18 @@ class App extends React.Component {
       cardTrunfo,
     } = formData;
 
-    const filteredCards = searchValue
-      ? savedCards.filter((card) => card.name.includes(searchValue)) : savedCards;
+    const {
+      searchText,
+      searchRarity,
+    } = searchValues;
+
+    const filteredCards = searchRarity
+      ? savedCards.filter((card) => (
+        card.name.toLowerCase().includes(searchText) && card.rarity === searchRarity
+      ))
+      : savedCards.filter((card) => (
+        card.name.toLowerCase().includes(searchText)
+      ));
 
     return (
       <>
@@ -182,13 +200,23 @@ class App extends React.Component {
             <span id="search-legend">Filtros de busca:</span>
             <input
               type="text"
-              name="searchCard"
+              name="searchText"
               placeholder="Nome da carta"
               id="input-search"
               data-testid="name-filter"
-              value={ searchValue }
+              value={ searchText }
               onChange={ this.handleSearch }
             />
+            <select
+              data-testid="rare-filter"
+              onChange={ this.handleSearch }
+              name="searchRarity"
+            >
+              <option value="todas">Todas</option>
+              <option value="normal">Normal</option>
+              <option value="raro">Raro</option>
+              <option value="muito raro">Muito Raro</option>
+            </select>
           </div>
 
           {filteredCards.map((card) => (
