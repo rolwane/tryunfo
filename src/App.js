@@ -34,6 +34,7 @@ class App extends React.Component {
       remainingPoints: 210,
       savedCards: [],
       hasTrunfo: false,
+      searchValue: '',
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,6 +42,7 @@ class App extends React.Component {
     this.saveCard = this.saveCard.bind(this);
     this.hasTrunfoValidation = this.hasTrunfoValidation.bind(this);
     this.removeCard = this.removeCard.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   handleChange({ target }) {
@@ -52,6 +54,10 @@ class App extends React.Component {
     remainingPoints = duzentosEDez - (Number(formData.attr01) + Number(formData.attr02));
     remainingPoints -= Number(formData.attr03);
     this.setState({ formData, remainingPoints }, this.formValidation);
+  }
+
+  handleSearch({ target }) {
+    this.setState({ searchValue: target.value });
   }
 
   formValidation() {
@@ -118,6 +124,7 @@ class App extends React.Component {
       hasTrunfo,
       savedCards,
       remainingPoints,
+      searchValue,
     } = this.state;
 
     const {
@@ -130,6 +137,9 @@ class App extends React.Component {
       rarity,
       cardTrunfo,
     } = formData;
+
+    const filteredCards = searchValue
+      ? savedCards.filter((card) => card.name.includes(searchValue)) : savedCards;
 
     return (
       <>
@@ -166,7 +176,22 @@ class App extends React.Component {
           </section>
         </section>
         <section className="cardList">
-          {savedCards.map((card) => (
+
+          <div className="filterCards">
+            <h2>Todas as cartas</h2>
+            <span id="search-legend">Filtros de busca:</span>
+            <input
+              type="text"
+              name="searchCard"
+              placeholder="Nome da carta"
+              id="input-search"
+              data-testid="name-filter"
+              value={ searchValue }
+              onChange={ this.handleSearch }
+            />
+          </div>
+
+          {filteredCards.map((card) => (
             <div key={ card.name } className="container-card">
               <Card
                 cardName={ card.name }
